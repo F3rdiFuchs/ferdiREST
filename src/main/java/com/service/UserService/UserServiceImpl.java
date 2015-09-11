@@ -2,6 +2,7 @@ package com.service.UserService;
 
 import java.util.List;
 
+import com.model.Groups.Groups;
 import com.model.User.User;
 import com.model.User.UserDAO;
 
@@ -39,5 +40,9 @@ public class UserServiceImpl implements UserService {
 
 	public List<User> listUserId() throws Exception {
 		return this.userDAO.listUserId();
+	}
+
+	public Groups getGroupById(Integer userId) throws Exception {
+		return this.userDAO.getGroupById(userId);
 	}
 }

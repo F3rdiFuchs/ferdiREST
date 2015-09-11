@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.model.Groups.Groups;
 import com.model.User.User;
 import com.service.UserService.UserService;
 
 @RestController
 public class UserController {
 	private UserService userService;
-
+	
 	public UserService getUserService() {
 		return userService;
 	}
@@ -30,7 +32,6 @@ public class UserController {
 		this.userService = userService;
 	}
 	
-	@SuppressWarnings("unused")
 	@RequestMapping(value="/user", method = RequestMethod.GET)
 	public HttpEntity<List<User>> listAllUser()
 	{
@@ -43,8 +44,8 @@ public class UserController {
 			for(User user : userList)
 			{
 				user.add(linkTo(methodOn(UserController.class).getUser(user.getUserId().toString())).withSelfRel());
+				user.add(linkTo(methodOn(GroupsController.class).getGroup(user.getGroups().getGroupId().toString())).withSelfRel());
 			}
-			
 		}
 		catch(Exception e)
 		{
@@ -60,7 +61,7 @@ public class UserController {
 		try 
 		{
 			user = this.userService.getUser(Integer.parseInt(id));
-
+			user.add(linkTo(methodOn(GroupsController.class).getGroup(user.getGroups().getGroupId().toString())).withSelfRel());
 		} 
 		catch (Exception e) 
 		{
@@ -68,4 +69,6 @@ public class UserController {
 		}
 		return user;
 	}
+	
+	
 }

@@ -101,4 +101,17 @@ public class UserDAOImpl implements UserDAO {
 		
 		return userList;
 	}
+
+	public Groups getGroupById(Integer userId) throws Exception {
+		Groups group = null;
+		Session session = this.sessionFactory.openSession();
+		org.hibernate.Transaction tx2 = session.beginTransaction();
+		
+		group = (Groups) session.get(Groups.class, userId);
+		
+		tx2.commit();
+		session.close();
+		
+		return group;
+	}
 }

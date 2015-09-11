@@ -11,41 +11,38 @@ import org.hibernate.Transaction;
 
 public class GroupsDAOImpl implements GroupsDAO {
 	
-	private SessionFactory m_sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	public GroupsDAOImpl(SessionFactory _sessionFactory)
 	{
-		this.m_sessionFactory = _sessionFactory;
+		this.sessionFactory = _sessionFactory;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Groups> listGroups()
+	public List<Groups> listGroups()throws Exception
 	{
-		List groupList = new ArrayList();
-		Session session = this.m_sessionFactory.openSession();
-		session.beginTransaction();
-			/*
-			Criteria cr = session.createCriteria(Groups.class);
-			groupList = cr.list();
-			for(Groups user : (List<Groups>)groupList)
-			{
-				user.getUser().toArray();
-			}
-			*/
+		List<Groups> groupList = new ArrayList<Groups>();
+		Session session = this.sessionFactory.openSession();
+		org.hibernate.Transaction tx2 = session.beginTransaction();
+		
 		groupList = session.createQuery("SELECT DISTINCT g FROM Groups g LEFT JOIN FETCH g.user").list();
 			
-		session.getTransaction().commit();
+		tx2.commit();
 		session.close();
 		
 		return groupList;
 	}
-	
-	public void addGroup(Groups _userGroup){
-	}
-	
-	public void updateGroup(Groups _group) {
-	}
-	
-	public void removeGroup(Integer _groupid) {	
+
+	public Groups getGroupById(Integer id) throws Exception{
+		Groups group = null;
+		List<Groups> groupList = new ArrayList<Groups>();
+		Session session = this.sessionFactory.openSession();
+		org.hibernate.Transaction tx2 = session.beginTransaction();
+		groupList = session.createQuery("SELECT DISTINCT g FROM Groups g LEFT JOIN FETCH g.user").list();
+		group = (Groups) session.get(Groups.class, id);
+		
+		tx2.commit();
+		session.close();
+		return group;
 	}
 }
