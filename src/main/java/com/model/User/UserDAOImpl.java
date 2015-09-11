@@ -87,6 +87,7 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<User> listUserId() throws Exception {
 		List<User> userList = new ArrayList<User>();
 		
