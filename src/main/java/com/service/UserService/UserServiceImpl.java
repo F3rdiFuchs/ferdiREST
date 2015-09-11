@@ -32,4 +32,12 @@ public class UserServiceImpl implements UserService {
 
 		return this.userDAO.checkLogin(userName, passWord);
 	}
+
+	public User getUser(int userid) throws Exception {
+		return this.userDAO.getUser(userid);
+	}
+
+	public List<User> listUserId() throws Exception {
+		return this.userDAO.listUserId();
+	}
 }

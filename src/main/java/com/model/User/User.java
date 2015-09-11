@@ -15,15 +15,18 @@ import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.model.Groups.Groups;
 
 @Entity
 @Table(name="user")
-public class User {
+public class User extends ResourceSupport {
 	private static final int PASSWORD_SECURITY = 2;
 	
 	@Id
@@ -130,6 +133,6 @@ public class User {
 	@Override
 	public String toString()
 	{
-		return this.userName;
+		return this.userId.toString();
 	}
 }

@@ -74,4 +74,30 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return false;
 	}
+
+	public User getUser(int userid) throws Exception {
+		User user = null;
+		Session session = this.sessionFactory.openSession();
+		org.hibernate.Transaction tx2 = session.beginTransaction();
+		
+		user = (User) session.get(User.class, userid);
+		
+		tx2.commit();
+		session.close();
+		return user;
+	}
+
+	public List<User> listUserId() throws Exception {
+		List<User> userList = new ArrayList<User>();
+		
+		Session session = this.sessionFactory.openSession();
+		org.hibernate.Transaction tx2 = session.beginTransaction();
+		
+		userList = (List<User>) session.createQuery("FROM User u LEFT JOIN FETCH u.groups").list();
+		
+		tx2.commit();
+		session.close();
+		
+		return userList;
+	}
 }
