@@ -38,7 +38,6 @@ public class GroupsController {
 	{
 		List<Groups> groupList = new ArrayList<Groups>();
 		
-		
 		try
 		{
 			groupList = groupsService.listGroups();
@@ -59,13 +58,15 @@ public class GroupsController {
 	public Groups getGroup(@PathVariable (value="id") String id)
 	{
 		Groups group = null;
+		
 		try
 		{
 			group = groupsService.getGroupById(Integer.parseInt(id));
+			group.add(linkTo(methodOn(GroupsController.class).getGroup(group.getGroupId().toString())).withSelfRel());
 		}
 		catch(Exception e)
 		{
-			
+			throw new RuntimeException(e);
 		}
 		return group;
 	}
