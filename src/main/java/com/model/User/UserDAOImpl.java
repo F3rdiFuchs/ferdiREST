@@ -11,7 +11,6 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
 	private SessionFactory sessionFactory;
 	private static final int DEFAULT_GROUPID_USER = 25;
-	private static final int DEFAULT_MESSAGE_USER = 1;
 	
 	public UserDAOImpl(SessionFactory _sessionFactory)
 	{
@@ -19,7 +18,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@SuppressWarnings("unchecked") 
-	public List<User> listUser() throws Exception {
+	public List<User> listUser() {
 		List<User> userList = new ArrayList<User>();
 		
 		Session session = this.sessionFactory.openSession();
@@ -33,7 +32,7 @@ public class UserDAOImpl implements UserDAO {
 		return userList;
 	}
 	
-	public void addUser(User user) throws Exception {
+	public void addUser(User user) {
 		user.encryptPasswd();
 		Session session = this.sessionFactory.openSession();
 		
@@ -48,7 +47,7 @@ public class UserDAOImpl implements UserDAO {
 		session.close();
 	}
 	
-	public boolean checkLogin(String userName, String passWord) throws Exception {
+	public boolean checkLogin(String userName, String passWord) {
 		User user = new User();
 		User tmp = new User();
 		tmp.setPassWord(passWord);
@@ -68,7 +67,7 @@ public class UserDAOImpl implements UserDAO {
 		return false;
 	}
 
-	public User getUser(int userid) throws Exception {
+	public User getUser(int userid)  {
 		User user = null;
 		Session session = this.sessionFactory.openSession();
 		org.hibernate.Transaction tx2 = session.beginTransaction();
@@ -81,7 +80,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<User> listUserId() throws Exception {
+	public List<User> listUserId() {
 		List<User> userList = new ArrayList<User>();
 		
 		Session session = this.sessionFactory.openSession();
@@ -95,7 +94,7 @@ public class UserDAOImpl implements UserDAO {
 		return userList;
 	}
 
-	public Groups getGroupById(Integer userId) throws Exception {
+	public Groups getGroupById(Integer userId) {
 		Groups group = null;
 		Session session = this.sessionFactory.openSession();
 		org.hibernate.Transaction tx2 = session.beginTransaction();

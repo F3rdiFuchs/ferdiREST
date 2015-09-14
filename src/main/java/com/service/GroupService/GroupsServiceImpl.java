@@ -17,11 +17,15 @@ public class GroupsServiceImpl implements GroupsService {
 		this.groupsDAO = groupsDAO;
 	}
 
-	public Groups getGroupById(Integer id) throws Exception {
+	public Groups getGroupById(Integer id) {
 		return this.groupsDAO.getGroupById(id);
 	}
 
-	public List<Groups> listGroups()throws Exception {
+	public List<Groups> listGroups() {
 		return this.groupsDAO.listGroups();
+	}
+
+	public List<User> getUserInGroup(Integer groupId) {
+		return this.groupsDAO.getUserInGroup(groupId);
 	}
 }

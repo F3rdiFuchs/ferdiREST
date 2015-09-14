@@ -5,16 +5,16 @@ import java.util.List;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.model.Groups.Groups;
+import com.model.User.TUser;
 import com.model.User.User;
 import com.service.UserService.UserService;
 
@@ -31,29 +31,28 @@ public class UserController {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-	
+
 	@RequestMapping(value="/user", method = RequestMethod.GET)
-	public HttpEntity<List<User>> listAllUser()
+	public HttpEntity<List<TUser>> listAllUser()
 	{
 		List<User> userList = new ArrayList<User>();
-
-		try
+		List<TUser> tuserList = new ArrayList<TUser>();
+		userList = userService.listUser();
+		
+		for(Integer Index=0;Index<userList.size();Index++)
 		{
-			userList = (List<User>) userService.listUser();
-			
-			for(User user : userList)
-			{
-				user.add(linkTo(methodOn(UserController.class).getUser(user.getUserId().toString())).withSelfRel());
-				user.add(linkTo(methodOn(GroupsController.class).getGroup(user.getGroups().getGroupId().toString())).withSelfRel());
-			}
+			tuserList.add(new TUser());
 		}
-		catch(Exception e)
+		for(Integer Index=0;Index<userList.size();Index++)
 		{
-			throw new RuntimeException(e);
+			User user = userList.get(Index);
+			Link slink = linkTo(methodOn(UserController.class).getUser(user.getUserId().toString())).withSelfRel();
+			tuserList.get(Index).add(slink);
 		}
-		return new ResponseEntity<List<User>>(userList,HttpStatus.OK);
+		
+		return new ResponseEntity<List<TUser>>(tuserList,HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value="/user/{id}", method = RequestMethod.GET)
 	public User getUser(@PathVariable (value="id") String id)
 	{

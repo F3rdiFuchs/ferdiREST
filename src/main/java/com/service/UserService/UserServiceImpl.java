@@ -20,29 +20,29 @@ public class UserServiceImpl implements UserService {
 		this.userDAO = userDAO;
 	}
 
-	public void addUser(User p) throws Exception {
+	public void addUser(User p) {
 		this.userDAO.addUser(p);
 	}
 
 
-	public List<User> listUser() throws Exception{
+	public List<User> listUser() {
 		return this.userDAO.listUser();
 	}
 
-	public boolean checkLogin(String userName, String passWord)throws Exception  {
+	public boolean checkLogin(String userName, String passWord) {
 
 		return this.userDAO.checkLogin(userName, passWord);
 	}
 
-	public User getUser(int userid) throws Exception {
+	public User getUser(int userid)  {
 		return this.userDAO.getUser(userid);
 	}
 
-	public List<User> listUserId() throws Exception {
+	public List<User> listUserId()  {
 		return this.userDAO.listUserId();
 	}
 
-	public Groups getGroupById(Integer userId) throws Exception {
+	public Groups getGroupById(Integer userId) {
 		return this.userDAO.getGroupById(userId);
 	}
 }

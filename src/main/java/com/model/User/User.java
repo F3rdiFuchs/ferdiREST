@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.model.Groups.Groups;
@@ -53,6 +54,7 @@ public class User extends ResourceSupport {
 	@Column(name="email")
 	private String eMail;
 
+	@JsonIgnore
 	@NotEmpty(message = "Please enter your password")
 	@Size(max=150)
 	@Column(name="password")

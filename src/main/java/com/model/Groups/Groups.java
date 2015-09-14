@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.hateoas.ResourceSupport;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.model.User.User;
 
@@ -34,7 +35,7 @@ public class Groups extends ResourceSupport {
 	@Column(name="allowtologin")
 	private Boolean allowToLogin;
 	
-	@JsonManagedReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "groups")
 	private List<User> user;
 
