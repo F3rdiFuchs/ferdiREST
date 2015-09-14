@@ -59,4 +59,11 @@ public class GroupsDAOImpl implements GroupsDAO {
 		session.close();
 		return userList;
 	}
+	
+
+	public void openSession(SessionFactory sessionFactory) {
+		Session session = this.sessionFactory.openSession();
+		org.hibernate.Transaction tx2 = session.beginTransaction();
+		
+	}
 }
