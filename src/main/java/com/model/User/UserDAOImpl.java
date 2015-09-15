@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.model.Groups.Groups;
-import com.service.Transaction.Transaction;
+import com.service.Transaction.ITransaction;
 import com.service.Transaction.TransactionImpl;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ private TransactionImpl transactionService;
 
 	@SuppressWarnings("unchecked")
 	public List<User> listUser() {
-		return (List<User>)transactionService.doInTransaktion(new Transaction() {
+		return (List<User>)transactionService.doInTransaktion(new ITransaction() {
 			
 			public Object execute(Session session) {
 				List<User> userList = new ArrayList<User>();
@@ -38,7 +38,7 @@ private TransactionImpl transactionService;
 	}
 
 	public User getUser(final int userid) {
-		return (User) transactionService.doInTransaktion(new Transaction() {
+		return (User) transactionService.doInTransaktion(new ITransaction() {
 			
 			public Object execute(Session session) {
 				User user = null;
@@ -49,7 +49,7 @@ private TransactionImpl transactionService;
 	}
 
 	public Groups getGroupById(final Integer userId) {
-		return (Groups) transactionService.doInTransaktion(new Transaction() {
+		return (Groups) transactionService.doInTransaktion(new ITransaction() {
 			
 			public Object execute(Session session) {
 				Groups group = null;

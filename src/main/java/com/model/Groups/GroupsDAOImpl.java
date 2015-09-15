@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.model.User.User;
-import com.service.Transaction.Transaction;
+import com.service.Transaction.ITransaction;
 import com.service.Transaction.TransactionImpl;
 
 public class GroupsDAOImpl implements GroupsDAO {
@@ -27,7 +27,7 @@ public class GroupsDAOImpl implements GroupsDAO {
 
 	public Groups getGroupById(final Integer id)
 	{
-		return (Groups) transactionService.doInTransaktion(new Transaction() {
+		return (Groups) transactionService.doInTransaktion(new ITransaction() {
 			
 			public Object execute(Session session) {
 				Groups group = new Groups();
@@ -39,7 +39,7 @@ public class GroupsDAOImpl implements GroupsDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<User> getUserInGroup(final Integer groupId) {
-		return (List<User>) transactionService.doInTransaktion(new Transaction() {
+		return (List<User>) transactionService.doInTransaktion(new ITransaction() {
 			
 			
 			public Object execute(Session session) {
@@ -58,7 +58,7 @@ public class GroupsDAOImpl implements GroupsDAO {
 	@SuppressWarnings("unchecked")
 	public List<Groups> listAllGroups()
 	{
-		Object ot = transactionService.doInTransaktion(new Transaction() {
+		Object ot = transactionService.doInTransaktion(new ITransaction() {
 
 			public Object execute(Session session) {
 				
