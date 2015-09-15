@@ -37,10 +37,8 @@
 	</bean>
 	
 	<bean id="userDAO" class="com.model.User.UserDAOImpl">
-		<constructor-arg>
-        	<ref bean="sessionFactory" />
-    	</constructor-arg>
 	</bean>
+	
 	<bean id="groupsDAO" class="com.model.Groups.GroupsDAOImpl">
 	</bean>
 	
@@ -48,6 +46,9 @@
 		<property name="userDAO" ref="userDAO"></property>
 	</bean>
 	
+	<bean id="groupsService" class="com.service.GroupsService.GroupsServiceImpl">
+		<property name="groupsDAO" ref="groupsDAO"></property>
+	</bean>
 	
 	<bean id="transactionService" class="com.service.Transaction.TransactionImpl">
 		<constructor-arg>
@@ -55,9 +56,7 @@
     	</constructor-arg>
 	</bean>
 	
-	<bean id="groupsService" class="com.service.GroupsService.GroupsServiceImpl">
-		<property name="groupsDAO" ref="groupsDAO"></property>
-	</bean>
+	
 	
 
 	

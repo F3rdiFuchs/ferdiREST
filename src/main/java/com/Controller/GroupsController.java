@@ -56,6 +56,7 @@ public class GroupsController {
 			Link slink = linkTo(methodOn(GroupsController.class).getGroup(group.getGroupId().toString())).withSelfRel();
 			tgroupList.get(Index).add(slink);
 		}
+		
 		return new ResponseEntity<List<TGroup>>(tgroupList,HttpStatus.OK);
 	}
 
@@ -73,6 +74,7 @@ public class GroupsController {
 		{
 			throw new RuntimeException(e);
 		}
+		
 		return group;
 	}
 	
@@ -82,8 +84,6 @@ public class GroupsController {
 		List<TUser> tuserList = new ArrayList<TUser>();
 		List<User> userList = new ArrayList<User>();
 		userList = groupsService.getUserInGroup(Integer.parseInt(id));
-
-		
 		
 		for(Integer Index=0;Index<userList.size();Index++)
 		{
@@ -97,7 +97,5 @@ public class GroupsController {
 		}
 		
 		return new ResponseEntity<List<TUser>>(tuserList,HttpStatus.OK);
-		
 	}
-
 }

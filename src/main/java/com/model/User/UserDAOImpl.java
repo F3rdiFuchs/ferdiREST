@@ -2,108 +2,60 @@ package com.model.User;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import com.model.Groups.Groups;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
+import com.model.Groups.Groups;
+import com.service.Transaction.Transaction;
+import com.service.Transaction.TransactionImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl implements UserDAO {
-	private SessionFactory sessionFactory;
-	private static final int DEFAULT_GROUPID_USER = 25;
+public class UserDAOImpl implements UserDAO {	
+private TransactionImpl transactionService;
 	
-	public UserDAOImpl(SessionFactory _sessionFactory)
-	{
-		this.sessionFactory = _sessionFactory;
+	public TransactionImpl getTransactionService() {
+		return transactionService;
 	}
 	
-	@SuppressWarnings("unchecked") 
-	public List<User> listUser() {
-		List<User> userList = new ArrayList<User>();
-		
-		Session session = this.sessionFactory.openSession();
-		org.hibernate.Transaction tx2 = session.beginTransaction();
-		
-		userList = (List<User>) session.createQuery("FROM User u LEFT JOIN FETCH u.groups").list();
-		
-		tx2.commit();
-		session.close();
-		
-		return userList;
-	}
-	
-	public void addUser(User user) {
-		user.encryptPasswd();
-		Session session = this.sessionFactory.openSession();
-		
-		session.beginTransaction();
-			
-		Groups group = (Groups)session.get(Groups.class, DEFAULT_GROUPID_USER);
-		user.setGroups(group);
-			
-		session.persist(user);
-		session.getTransaction().commit();
-		
-		session.close();
-	}
-	
-	public boolean checkLogin(String userName, String passWord) {
-		User user = new User();
-		User tmp = new User();
-		tmp.setPassWord(passWord);
-		tmp.encryptPasswd();
-		
-		Session session = this.sessionFactory.openSession();
-		session.beginTransaction();
-		
-		user = (User) session.get(User.class, userName);
-		if(!userName.equals("") && !passWord.equals(""))
-		{
-			if(user.getPassWord()== tmp.getPassWord())
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public User getUser(int userid)  {
-		User user = null;
-		Session session = this.sessionFactory.openSession();
-		org.hibernate.Transaction tx2 = session.beginTransaction();
-		
-		user = (User) session.get(User.class, userid);
-		
-		tx2.commit();
-		session.close();
-		return user;
+	@Autowired(required=true)
+	@Qualifier(value="transactionService")
+	public void setTransactionService(TransactionImpl transactionService) {
+		this.transactionService = transactionService;
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<User> listUserId() {
-		List<User> userList = new ArrayList<User>();
-		
-		Session session = this.sessionFactory.openSession();
-		org.hibernate.Transaction tx2 = session.beginTransaction();
-		
-		userList = (List<User>) session.createQuery("FROM User u LEFT JOIN FETCH u.groups").list();
-		
-		tx2.commit();
-		session.close();
-		
-		return userList;
+	public List<User> listUser() {
+		return (List<User>)transactionService.doInTransaktion(new Transaction() {
+			
+			public Object execute(Session session) {
+				List<User> userList = new ArrayList<User>();
+				userList = (List<User>) session.createQuery("FROM User u LEFT JOIN FETCH u.groups").list();
+				return userList;
+			}
+		});
 	}
 
-	public Groups getGroupById(Integer userId) {
-		Groups group = null;
-		Session session = this.sessionFactory.openSession();
-		org.hibernate.Transaction tx2 = session.beginTransaction();
-		
-		group = (Groups) session.get(Groups.class, userId);
-		
-		tx2.commit();
-		session.close();
-		
-		return group;
+	public User getUser(final int userid) {
+		return (User) transactionService.doInTransaktion(new Transaction() {
+			
+			public Object execute(Session session) {
+				User user = null;
+				user = (User) session.get(User.class, userid);
+				return user;
+			}
+		});
+	}
+
+	public Groups getGroupById(final Integer userId) {
+		return (Groups) transactionService.doInTransaktion(new Transaction() {
+			
+			public Object execute(Session session) {
+				Groups group = null;
+				group = (Groups) session.get(Groups.class, userId);
+				return group;
+			}
+		});
 	}
 }
