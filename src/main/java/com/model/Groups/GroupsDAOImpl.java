@@ -30,24 +30,10 @@ public class GroupsDAOImpl implements GroupsDAO {
 		session.close();
 		return group;
 	}
-	/*
-	@SuppressWarnings("unchecked")
-	public List<User> getUserInGroup(Integer groupId) {
-		List<User> userList = new ArrayList<User>();
-		
-		Session session = this.sessionFactory.openSession();
-		org.hibernate.Transaction tx2 = session.beginTransaction();
-		
 
-		
-		
-		tx2.commit();
-		session.close();
-		return userList;
-	}
-	*/
+	
 	@SuppressWarnings("unchecked")
-	public List<User> getUserInGroup(Integer groupId) {
+	public List<User> getUserInGroup(final Integer groupId) {
 		return (List<User>) groupsService.doInTransaktion(new GroupsService() {
 			
 			
@@ -61,7 +47,7 @@ public class GroupsDAOImpl implements GroupsDAO {
 				return userList;
 				
 			}
-		})
+		});
 	}
 	
 	@SuppressWarnings("unchecked")
