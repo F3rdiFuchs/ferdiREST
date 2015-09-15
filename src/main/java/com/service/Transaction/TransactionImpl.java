@@ -23,14 +23,6 @@ public class TransactionImpl {
 		try
 		{
 			data = dataObject.execute(session);
-		}
-		catch(Exception e)
-		{
-			throw new RuntimeException(e);
-		}
-		
-		try
-		{
 			tx.commit();
 		}
 		catch(Exception e)
@@ -38,10 +30,7 @@ public class TransactionImpl {
 			tx.rollback();
 			throw new RuntimeException(e);
 		}
-		finally
-		{
-			session.close();
-		}
+		session.close();
 		return data;
 	}
 }
