@@ -12,13 +12,14 @@ public class TransactionImpl {
 
 	public Object doInTransaktion(Transaction dataObject)
 	{
+		Object data;
 		Session session = this.sessionFactory.openSession();
 		org.hibernate.Transaction tx2 = session.beginTransaction();
 		
-		dataObject.execute(session);
+		data = dataObject.execute(session);
 		
 		tx2.commit();
 		session.close();
-		return dataObject;
+		return data;
 	}
 }

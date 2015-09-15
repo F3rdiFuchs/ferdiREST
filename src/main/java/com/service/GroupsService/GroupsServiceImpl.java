@@ -26,7 +26,7 @@ public class GroupsServiceImpl implements GroupsService{
 	}
 
 	public Groups getGroupById(Integer id) {
-		return this.getGroupById(id);
+		return this.groupsDAO.getGroupById(id);
 	}
 
 }

@@ -58,7 +58,7 @@ public class GroupsDAOImpl implements GroupsDAO {
 	@SuppressWarnings("unchecked")
 	public List<Groups> listAllGroups()
 	{
-		return (List<Groups>) transactionService.doInTransaktion(new Transaction() {
+		Object ot = transactionService.doInTransaktion(new Transaction() {
 
 			public Object execute(Session session) {
 				
@@ -67,5 +67,6 @@ public class GroupsDAOImpl implements GroupsDAO {
 				return groupList;
 			}
 		});
+		return (List<Groups>) ot;
 	}
 }

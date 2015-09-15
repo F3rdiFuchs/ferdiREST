@@ -62,7 +62,7 @@ public class GroupsController {
 	@RequestMapping(value="/groups/{id}", method = RequestMethod.GET)
 	public Groups getGroup(@PathVariable (value="id") String id)
 	{
-		Groups group = new Groups();
+		Groups group = null;
 		try
 		{
 			group = groupsService.getGroupById(Integer.parseInt(id));
