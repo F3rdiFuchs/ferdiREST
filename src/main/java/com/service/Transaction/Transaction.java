@@ -1,7 +1,7 @@
-package com.service.GroupService;
+package com.service.Transaction;
 
 import org.hibernate.Session;
 
-public interface GroupsService {
+public interface Transaction {
 	Object execute(Session session);	
 }

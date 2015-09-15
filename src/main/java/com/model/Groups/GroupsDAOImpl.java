@@ -4,37 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import com.model.User.User;
-import com.service.GroupService.GroupsService;
-import com.service.GroupService.GroupsServiceImpl;
+import com.service.Transaction.Transaction;
+import com.service.Transaction.TransactionImpl;
 
 public class GroupsDAOImpl implements GroupsDAO {
+	private TransactionImpl transactionService;
 	
-	private SessionFactory sessionFactory;
-	private GroupsServiceImpl groupsService;
 	
-	public GroupsDAOImpl(SessionFactory _sessionFactory)
-	{
-		this.sessionFactory = _sessionFactory;
+	public TransactionImpl getTransactionService() {
+		return transactionService;
 	}
 	
-	
-	public Groups getGroupById(Integer id){
-		Groups group = null;
-		Session session = this.sessionFactory.openSession();
-		org.hibernate.Transaction tx2 = session.beginTransaction();
-		group = (Groups) session.get(Groups.class, id);
-		
-		tx2.commit();
-		session.close();
-		return group;
+	@Autowired(required=true)
+	@Qualifier(value="transactionService")
+	public void setTransactionService(TransactionImpl transactionService) {
+		this.transactionService = transactionService;
 	}
 
+	public Groups getGroupById(final Integer id)
+	{
+		return (Groups) transactionService.doInTransaktion(new Transaction() {
+			
+			public Object execute(Session session) {
+				Groups group = new Groups();
+				group = (Groups) session.get(Groups.class, id);
+				return group;
+			}
+		});
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<User> getUserInGroup(final Integer groupId) {
-		return (List<User>) groupsService.doInTransaktion(new GroupsService() {
+		return (List<User>) transactionService.doInTransaktion(new Transaction() {
 			
 			
 			public Object execute(Session session) {
@@ -53,7 +58,7 @@ public class GroupsDAOImpl implements GroupsDAO {
 	@SuppressWarnings("unchecked")
 	public List<Groups> listAllGroups()
 	{
-		return (List<Groups>) groupsService.doInTransaktion(new GroupsService() {
+		return (List<Groups>) transactionService.doInTransaktion(new Transaction() {
 
 			public Object execute(Session session) {
 				

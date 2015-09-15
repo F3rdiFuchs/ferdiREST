@@ -21,18 +21,30 @@ import com.model.Groups.Groups;
 import com.model.Groups.TGroup;
 import com.model.User.TUser;
 import com.model.User.User;
+import com.service.GroupsService.GroupsService;
 
 
 @RestController
 public class GroupsController {
 	
-	/*
+	GroupsService groupsService;
+	
+	public GroupsService getGroupsService() {
+		return groupsService;
+	}
+
+	@Autowired(required=true)
+	@Qualifier(value="groupsService")
+	public void setGroupsService(GroupsService groupsService) {
+		this.groupsService = groupsService;
+	}
+
 	@RequestMapping(value="/groups", method = RequestMethod.GET)
 	public HttpEntity<List<TGroup>> getGroups()
 	{
 		List<Groups> groupList = new ArrayList<Groups>();
 		List<TGroup> tgroupList = new ArrayList<TGroup>();
-		groupList = groupsService.listGroups();
+		groupList = groupsService.listAllGroups();
 		
 		for(Integer Index=0;Index<groupList.size();Index++)
 		{
@@ -50,7 +62,7 @@ public class GroupsController {
 	@RequestMapping(value="/groups/{id}", method = RequestMethod.GET)
 	public Groups getGroup(@PathVariable (value="id") String id)
 	{
-		Groups group = null;
+		Groups group = new Groups();
 		try
 		{
 			group = groupsService.getGroupById(Integer.parseInt(id));
@@ -87,6 +99,5 @@ public class GroupsController {
 		return new ResponseEntity<List<TUser>>(tuserList,HttpStatus.OK);
 		
 	}
-	
-	*/
+
 }

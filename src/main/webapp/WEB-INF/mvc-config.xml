@@ -31,7 +31,7 @@
     		<list>
     			<value>com.model.User.User</value>
     			<value>com.model.Groups.Groups</value>
-    			<value>com.model.Groups.GroupFunction</value>
+    			<value>com.service.Transaction.TransactionImpl</value>
     		</list>
     	</property>
 	</bean>
@@ -41,22 +41,22 @@
         	<ref bean="sessionFactory" />
     	</constructor-arg>
 	</bean>
-	
-	
 	<bean id="groupsDAO" class="com.model.Groups.GroupsDAOImpl">
-		<constructor-arg>
-        	<ref bean="sessionFactory" />
-    	</constructor-arg>
 	</bean>
 	
 	<bean id="userService" class="com.service.UserService.UserServiceImpl">
 		<property name="userDAO" ref="userDAO"></property>
 	</bean>
 	
-	<bean id="groupssService" class="com.service.GroupService.GroupsServiceImpl">
+	
+	<bean id="transactionService" class="com.service.Transaction.TransactionImpl">
 		<constructor-arg>
         	<ref bean="sessionFactory" />
     	</constructor-arg>
+	</bean>
+	
+	<bean id="groupsService" class="com.service.GroupsService.GroupsServiceImpl">
+		<property name="groupsDAO" ref="groupsDAO"></property>
 	</bean>
 	
 
