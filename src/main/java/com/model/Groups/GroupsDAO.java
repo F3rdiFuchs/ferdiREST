@@ -7,8 +7,7 @@ import org.hibernate.SessionFactory;
 import com.model.User.User;
 
 public interface GroupsDAO {
-	public List <Groups> listGroups();
+	public List<Groups> listAllGroups();
 	public List<User> getUserInGroup(Integer groupId);
 	public Groups getGroupById(Integer id);
-	public void openSession(SessionFactory sessionFactory);
 }

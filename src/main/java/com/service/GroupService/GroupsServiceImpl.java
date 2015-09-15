@@ -1,31 +1,25 @@
 package com.service.GroupService;
 
-import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-import com.model.Groups.Groups;
-import com.model.Groups.GroupsDAO;
-import com.model.User.User;
-
-public class GroupsServiceImpl implements GroupsService {
-	private GroupsDAO groupsDAO;
+public class GroupsServiceImpl {
+	private SessionFactory sessionFactory;
 	
-	public GroupsDAO getGroupsDAO() {
-		return groupsDAO;
+	public GroupsServiceImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
-	public void setGroupsDAO(GroupsDAO groupsDAO) {
-		this.groupsDAO = groupsDAO;
+	public Object doInTransaktion(GroupsService dataObject)
+	{
+		Session session = this.sessionFactory.openSession();
+		org.hibernate.Transaction tx2 = session.beginTransaction();
+		
+		dataObject.execute(session);
+		
+		tx2.commit();
+		session.close();
+		return dataObject;
 	}
 
-	public Groups getGroupById(Integer id) {
-		return this.groupsDAO.getGroupById(id);
-	}
-
-	public List<Groups> listGroups() {
-		return this.groupsDAO.listGroups();
-	}
-
-	public List<User> getUserInGroup(Integer groupId) {
-		return this.groupsDAO.getUserInGroup(groupId);
-	}
 }

@@ -21,28 +21,19 @@ import com.model.Groups.Groups;
 import com.model.Groups.TGroup;
 import com.model.User.TUser;
 import com.model.User.User;
-import com.service.GroupService.GroupsService;
+
 
 @RestController
 public class GroupsController {
-	private GroupsService groupsService;
-
-	public GroupsService getGroupsService() {
-		return groupsService;
-	}
 	
-	@Autowired(required=true)
-	@Qualifier(value="groupsService")
-	public void setGroupsService(GroupsService groupsService) {
-		this.groupsService = groupsService;
-	}
-	
+	/*
 	@RequestMapping(value="/groups", method = RequestMethod.GET)
 	public HttpEntity<List<TGroup>> getGroups()
 	{
 		List<Groups> groupList = new ArrayList<Groups>();
 		List<TGroup> tgroupList = new ArrayList<TGroup>();
 		groupList = groupsService.listGroups();
+		
 		for(Integer Index=0;Index<groupList.size();Index++)
 		{
 			tgroupList.add(new TGroup());
@@ -55,7 +46,7 @@ public class GroupsController {
 		}
 		return new ResponseEntity<List<TGroup>>(tgroupList,HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value="/groups/{id}", method = RequestMethod.GET)
 	public Groups getGroup(@PathVariable (value="id") String id)
 	{
@@ -80,6 +71,8 @@ public class GroupsController {
 		List<User> userList = new ArrayList<User>();
 		userList = groupsService.getUserInGroup(Integer.parseInt(id));
 
+		
+		
 		for(Integer Index=0;Index<userList.size();Index++)
 		{
 			tuserList.add(new TUser());
@@ -94,5 +87,6 @@ public class GroupsController {
 		return new ResponseEntity<List<TUser>>(tuserList,HttpStatus.OK);
 		
 	}
-
+	
+	*/
 }
