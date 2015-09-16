@@ -27,11 +27,11 @@ public class GroupsDAOImpl implements GroupsDAO {
 
 	public Groups getGroupById(final Integer id)
 	{
-		return (Groups) transactionService.doInTransaktion(new ITransaction() {
+		return transactionService.doInTransaktion(new ITransaction<Groups>() {
 			
-			public Object execute(Session session) {
+			public Groups execute(Session session) {
 				Groups group = new Groups();
-				group = (Groups) session.get(Groups.class, id);
+				group = (Groups)session.get(Groups.class, id);
 				return group;
 			}
 		});

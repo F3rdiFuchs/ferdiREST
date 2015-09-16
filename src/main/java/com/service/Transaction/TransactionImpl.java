@@ -4,18 +4,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class TransactionImpl {
+public class TransactionImpl{
 	private SessionFactory sessionFactory;
 	
 	public TransactionImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public Object doInTransaktion(ITransaction dataObject)
+	public <T> T doInTransaktion(ITransaction<T> dataObject)
 	{
 		Transaction tx = null;
 		Session session = null;
-		Object data;
+		T data;
 		
 		session = this.sessionFactory.openSession();
 		tx = session.beginTransaction();

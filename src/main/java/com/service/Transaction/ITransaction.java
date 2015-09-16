@@ -2,6 +2,6 @@ package com.service.Transaction;
 
 import org.hibernate.Session;
 
-public interface ITransaction {
-	Object execute(Session session);	
+public interface ITransaction<T> {
+	T execute(Session session);	
 }
