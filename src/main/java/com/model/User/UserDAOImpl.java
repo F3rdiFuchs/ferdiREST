@@ -27,9 +27,9 @@ private TransactionImpl transactionService;
 
 	@SuppressWarnings("unchecked")
 	public List<User> listUser() {
-		return (List<User>)transactionService.doInTransaktion(new ITransaction() {
+		return transactionService.doInTransaktion(new ITransaction<List<User>>() {
 			
-			public Object execute(Session session) {
+			public List<User> execute(Session session) {
 				List<User> userList = new ArrayList<User>();
 				userList = (List<User>) session.createQuery("FROM User u LEFT JOIN FETCH u.groups").list();
 				return userList;
@@ -38,9 +38,9 @@ private TransactionImpl transactionService;
 	}
 
 	public User getUser(final int userid) {
-		return (User) transactionService.doInTransaktion(new ITransaction() {
+		return transactionService.doInTransaktion(new ITransaction<User>() {
 			
-			public Object execute(Session session) {
+			public User execute(Session session) {
 				User user = null;
 				user = (User) session.get(User.class, userid);
 				return user;
@@ -49,9 +49,9 @@ private TransactionImpl transactionService;
 	}
 
 	public Groups getGroupById(final Integer userId) {
-		return (Groups) transactionService.doInTransaktion(new ITransaction() {
+		return transactionService.doInTransaktion(new ITransaction<Groups>() {
 			
-			public Object execute(Session session) {
+			public Groups execute(Session session) {
 				Groups group = null;
 				group = (Groups) session.get(Groups.class, userId);
 				return group;

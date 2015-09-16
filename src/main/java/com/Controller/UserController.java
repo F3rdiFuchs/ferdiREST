@@ -27,7 +27,7 @@ public class UserController {
 	}
 	
 	@Autowired(required=true)
-	@Qualifier(value="userService")
+	@Qualifier(value ="userService")
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
@@ -39,15 +39,15 @@ public class UserController {
 		List<TUser> tuserList = new ArrayList<TUser>();
 		userList = userService.listUser();
 		
-		for(Integer Index=0;Index<userList.size();Index++)
+		for (Integer index = 0; index < userList.size(); index++)
 		{
 			tuserList.add(new TUser());
 		}
-		for(Integer Index=0;Index<userList.size();Index++)
+		for (Integer index = 0; index < userList.size(); index++)
 		{
-			User user = userList.get(Index);
+			User user = userList.get(index);
 			Link slink = linkTo(methodOn(UserController.class).getUser(user.getUserId().toString())).withSelfRel();
-			tuserList.get(Index).add(slink);
+			tuserList.get(index).add(slink);
 		}
 		
 		return new ResponseEntity<List<TUser>>(tuserList,HttpStatus.OK);

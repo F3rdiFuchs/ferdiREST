@@ -39,10 +39,10 @@ public class GroupsDAOImpl implements GroupsDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<User> getUserInGroup(final Integer groupId) {
-		return (List<User>) transactionService.doInTransaktion(new ITransaction() {
+		return transactionService.doInTransaktion(new ITransaction<List<User>>() {
 			
 			
-			public Object execute(Session session) {
+			public List<User> execute(Session session) {
 				
 				List<User> userList = new ArrayList<User>();
 				Groups group = (Groups) session.get(Groups.class, groupId);
@@ -50,7 +50,6 @@ public class GroupsDAOImpl implements GroupsDAO {
 						.setEntity("group", group)
 						.list();
 				return userList;
-				
 			}
 		});
 	}
@@ -58,15 +57,14 @@ public class GroupsDAOImpl implements GroupsDAO {
 	@SuppressWarnings("unchecked")
 	public List<Groups> listAllGroups()
 	{
-		Object ot = transactionService.doInTransaktion(new ITransaction() {
+		return transactionService.doInTransaktion(new ITransaction<List<Groups>>() {
 
-			public Object execute(Session session) {
+			public List<Groups> execute(Session session) {
 				
 				List<Groups> groupList = new ArrayList<Groups>();
 				groupList = session.createQuery("SELECT DISTINCT g FROM Groups g LEFT JOIN FETCH g.user").list();
 				return groupList;
 			}
 		});
-		return (List<Groups>) ot;
 	}
 }
