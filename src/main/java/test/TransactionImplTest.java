@@ -29,17 +29,32 @@ public class TransactionImplTest {
 	}
 	
 	@Test()
-	public void test() {
-		
+	public void doInTransaktionRollback() {
+		try
+		{
 		transactionImpl.doInTransaktion(new ITransaction<Object>() {
 
 			public Object execute(Session session) {
-				return  "1";
+				throw new RuntimeException();
 			}
 		});
 		verify(transaction).rollback();
-		
-		
+		}
+		catch (Exception e)
+		{
+			
+		}
 	}
+	
+	@Test()
+	public void doInTransaktionCommit() {
 
+		transactionImpl.doInTransaktion(new ITransaction<Object>() {
+
+			public Object execute(Session session) {
+				return "test";
+			}
+		});
+		verify(transaction).commit();
+	}
 }
