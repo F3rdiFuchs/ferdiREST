@@ -2,7 +2,7 @@ package com.service.UserService;
 
 import java.util.List;
 
-import com.model.Groups.Groups;
+import com.model.Group.Group;
 import com.model.User.User;
 import com.model.User.UserDAO;
 
@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService {
 		return userDAO;
 	}
 
-	public void setUserDAO(UserDAO userDAO) {
-		this.userDAO = userDAO;
+	public void setUserDAO(UserDAO userD) {
+		this.userDAO = userD;
 	}
 
 	public List<User> listUser() {
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 		return this.userDAO.getUser(userid);
 	}
 
-	public Groups getGroupById(Integer userId) {
+	public Group getGroupById(Integer userId) {
 		return this.userDAO.getGroupById(userId);
 	}
 }

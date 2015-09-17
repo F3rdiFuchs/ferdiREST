@@ -2,10 +2,10 @@ package com.model.User;
 
 import java.util.List;
 
-import com.model.Groups.Groups;
+import com.model.Group.Group;
 
 public interface UserDAO {
-	public List <User> listUser();
-	public User getUser(int userid);
-	public Groups getGroupById(Integer userId);
+	List <User> listUser();
+	User getUser(int userid);
+	Group getGroupById(Integer userId);
 }

@@ -1,4 +1,4 @@
-package com.model.Groups;
+package com.model.Group;
 
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;

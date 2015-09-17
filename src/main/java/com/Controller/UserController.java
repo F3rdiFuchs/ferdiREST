@@ -26,13 +26,13 @@ public class UserController {
 		return userService;
 	}
 	
-	@Autowired(required=true)
-	@Qualifier(value ="userService")
+	@Autowired(required = true)
+	@Qualifier(value = "userService")
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 
-	@RequestMapping(value="/user", method = RequestMethod.GET)
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public HttpEntity<List<TUser>> listAllUser()
 	{
 		List<User> userList = new ArrayList<User>();
@@ -49,24 +49,22 @@ public class UserController {
 			Link slink = linkTo(methodOn(UserController.class).getUser(user.getUserId().toString())).withSelfRel();
 			tuserList.get(index).add(slink);
 		}
-		
-		return new ResponseEntity<List<TUser>>(tuserList,HttpStatus.OK);
+		return new ResponseEntity<List<TUser>>(tuserList, HttpStatus.OK);
 	}
 
-	@RequestMapping(value="/user/{id}", method = RequestMethod.GET)
-	public User getUser(@PathVariable (value="id") String id)
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	public User getUser(@PathVariable (value = "id") String id)
 	{
 		User user;
 		try 
 		{
 			user = this.userService.getUser(Integer.parseInt(id));
-			user.add(linkTo(methodOn(GroupsController.class).getGroup(user.getGroups().getGroupId().toString())).withSelfRel());
+			user.add(linkTo(methodOn(GroupController.class).getGroup(user.getGroups().getGroupId().toString())).withSelfRel());
 		} 
 		catch (Exception e) 
 		{
 			throw new RuntimeException(e);
 		}
-		
 		return user;
 	}	
 }

@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.model.Groups.Groups;
+import com.model.Group.Group;
 import com.service.Transaction.ITransaction;
 import com.service.Transaction.TransactionImpl;
 
@@ -19,10 +19,10 @@ private TransactionImpl transactionService;
 		return transactionService;
 	}
 	
-	@Autowired(required=true)
-	@Qualifier(value="transactionService")
-	public void setTransactionService(TransactionImpl transactionService) {
-		this.transactionService = transactionService;
+	@Autowired(required = true)
+	@Qualifier(value = "transactionService")
+	public void setTransactionService(TransactionImpl transactionServ) {
+		this.transactionService = transactionServ;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -48,12 +48,12 @@ private TransactionImpl transactionService;
 		});
 	}
 
-	public Groups getGroupById(final Integer userId) {
-		return transactionService.doInTransaktion(new ITransaction<Groups>() {
+	public Group getGroupById(final Integer userId) {
+		return transactionService.doInTransaktion(new ITransaction<Group>() {
 			
-			public Groups execute(Session session) {
-				Groups group = null;
-				group = (Groups) session.get(Groups.class, userId);
+			public Group execute(Session session) {
+				Group group = null;
+				group = (Group) session.get(Group.class, userId);
 				return group;
 			}
 		});

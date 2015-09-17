@@ -4,11 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class TransactionImpl{
+public class TransactionImpl {
 	private SessionFactory sessionFactory;
 	
-	public TransactionImpl(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	public TransactionImpl(SessionFactory sessionF) {
+		this.sessionFactory = sessionF;
 	}
 
 	public <T> T doInTransaktion(ITransaction<T> dataObject)
@@ -25,7 +25,7 @@ public class TransactionImpl{
 			data = dataObject.execute(session);
 			tx.commit();
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			tx.rollback();
 			throw new RuntimeException(e);
@@ -33,4 +33,5 @@ public class TransactionImpl{
 		session.close();
 		return data;
 	}
+	
 }

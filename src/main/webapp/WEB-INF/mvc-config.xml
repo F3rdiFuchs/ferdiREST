@@ -30,7 +30,7 @@
     	<property name="annotatedClasses">
     		<list>
     			<value>com.model.User.User</value>
-    			<value>com.model.Groups.Groups</value>
+    			<value>com.model.Group.Group</value>
     			<value>com.service.Transaction.TransactionImpl</value>
     		</list>
     	</property>
@@ -39,14 +39,14 @@
 	<bean id="userDAO" class="com.model.User.UserDAOImpl">
 	</bean>
 	
-	<bean id="groupsDAO" class="com.model.Groups.GroupsDAOImpl">
+	<bean id="groupsDAO" class="com.model.Group.GroupDAOImpl">
 	</bean>
 	
 	<bean id="userService" class="com.service.UserService.UserServiceImpl">
 		<property name="userDAO" ref="userDAO"></property>
 	</bean>
 	
-	<bean id="groupsService" class="com.service.GroupsService.GroupsServiceImpl">
+	<bean id="groupsService" class="com.service.GroupService.GroupServiceImpl">
 		<property name="groupsDAO" ref="groupsDAO"></property>
 	</bean>
 	

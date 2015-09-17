@@ -1,4 +1,4 @@
-package com.model.Groups;
+package com.model.Group;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,27 +11,26 @@ import com.model.User.User;
 import com.service.Transaction.ITransaction;
 import com.service.Transaction.TransactionImpl;
 
-public class GroupsDAOImpl implements GroupsDAO {
+public class GroupDAOImpl implements GroupDAO {
 	private TransactionImpl transactionService;
-	
 	
 	public TransactionImpl getTransactionService() {
 		return transactionService;
 	}
 	
-	@Autowired(required=true)
-	@Qualifier(value="transactionService")
+	@Autowired(required = true)
+	@Qualifier(value = "transactionService")
 	public void setTransactionService(TransactionImpl transactionService) {
 		this.transactionService = transactionService;
 	}
 
-	public Groups getGroupById(final Integer id)
+	public Group getGroupById(final Integer id)
 	{
-		return transactionService.doInTransaktion(new ITransaction<Groups>() {
+		return transactionService.doInTransaktion(new ITransaction<Group>() {
 			
-			public Groups execute(Session session) {
-				Groups group = new Groups();
-				group = (Groups)session.get(Groups.class, id);
+			public Group execute(Session session) {
+				Group group = new Group();
+				group = (Group)session.get(Group.class, id);
 				return group;
 			}
 		});
@@ -41,11 +40,10 @@ public class GroupsDAOImpl implements GroupsDAO {
 	public List<User> getUserInGroup(final Integer groupId) {
 		return transactionService.doInTransaktion(new ITransaction<List<User>>() {
 			
-			
 			public List<User> execute(Session session) {
 				
 				List<User> userList = new ArrayList<User>();
-				Groups group = (Groups) session.get(Groups.class, groupId);
+				Group group = (Group) session.get(Group.class, groupId);
 				userList = (List<User>) session.createQuery("FROM User u WHERE groups = :group")
 						.setEntity("group", group)
 						.list();
@@ -55,14 +53,14 @@ public class GroupsDAOImpl implements GroupsDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Groups> listAllGroups()
+	public List<Group> listAllGroups()
 	{
-		return transactionService.doInTransaktion(new ITransaction<List<Groups>>() {
+		return transactionService.doInTransaktion(new ITransaction<List<Group>>() {
 
-			public List<Groups> execute(Session session) {
+			public List<Group> execute(Session session) {
 				
-				List<Groups> groupList = new ArrayList<Groups>();
-				groupList = session.createQuery("SELECT DISTINCT g FROM Groups g LEFT JOIN FETCH g.user").list();
+				List<Group> groupList = new ArrayList<Group>();
+				groupList = session.createQuery("SELECT DISTINCT g FROM Group g LEFT JOIN FETCH g.user").list();
 				return groupList;
 			}
 		});

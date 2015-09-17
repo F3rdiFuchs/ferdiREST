@@ -1,4 +1,4 @@
-package com.model.Groups;
+package com.model.Group;
 
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -17,22 +17,22 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.model.User.User;
 
 @Entity
-@Table(name="groups")
-public class Groups extends ResourceSupport {
+@Table(name = "groups")
+public class Group extends ResourceSupport {
 	@Id
-    @Column(name="groupid")
+    @Column(name = "groupid")
 	private Integer groupId;
 	
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
 	
-	@Column(name="description")
+	@Column(name = "description")
 	private String description;
 	
-	@Column(name="accesslevel")
+	@Column(name = "accesslevel")
 	private Integer accessLevel;
 	
-	@Column(name="allowtologin")
+	@Column(name = "allowtologin")
 	private Boolean allowToLogin;
 	
 	@JsonIgnore
