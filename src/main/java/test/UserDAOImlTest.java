@@ -2,39 +2,44 @@ package test;
 
 import static org.junit.Assert.*;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
-
+import java.util.Arrays;
 import java.util.List;
 
-import com.model.Group.Group;
 import com.model.User.User;
 import com.model.User.UserDAOImpl;
 import com.service.Transaction.ITransaction;
 import com.service.Transaction.TransactionImpl;
 
 public class UserDAOImlTest {
-	
+	Query query;
 	Session session;
 	UserDAOImpl userDAOImpl;
 	
+
+	
 	@Before
 	public void create(){
+		query = mock(Query.class);
 		session = mock(Session.class);
-		TransactionMock transactionMock = new TransactionMock(session);
-		userDAOImpl.setTransactionService(transactionMock);
 		
+		TransactionMock transactionMock = new TransactionMock(session);
+		
+		userDAOImpl = new UserDAOImpl();
+		userDAOImpl.setTransactionService(transactionMock);
 	}
 	
-
 	@Test
 	public void test() {
-		
-		List<User> userList = userDAOImpl.listUser();
-		
+		List<User> userList = Arrays.asList(new User(),new User());
+		when(session.createQuery(anyString())).thenReturn(query);
+		when(query.list()).thenReturn(userList);
+		List<User> testUserList = userDAOImpl.listUser();
+		assertEquals(testUserList,userList);
 	}
 	
 	class TransactionMock extends TransactionImpl
@@ -43,9 +48,7 @@ public class UserDAOImlTest {
 		public TransactionMock(Session session) {
 			super(null);
 			this.session = session;
-			
 		}
-		
 		
 		@Override
 		public <T> T doInTransaktion(ITransaction<T> dataObject) {
@@ -54,7 +57,5 @@ public class UserDAOImlTest {
 			
 			return data;
 		}
-		
 	}
-
 }
