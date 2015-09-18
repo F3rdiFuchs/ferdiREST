@@ -10,5 +10,4 @@ public class ExecuteException extends RuntimeException {
 	{
 		super("This only happens if the test is ok!");
 	}
-
 }
