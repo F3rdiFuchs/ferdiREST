@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.model.User.User;
-import com.service.Transaction.ITransaction;
-import com.service.Transaction.TransactionImpl;
+import com.service.TransactionService.ITransaction;
+import com.service.TransactionService.TransactionImpl;
 
 public class GroupDAOImpl implements GroupDAO {
 	private TransactionImpl transactionService;

@@ -1,8 +1,10 @@
-package com.service.Transaction;
+package com.service.TransactionService;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
+import Exception.ExecuteException;
 
 public class TransactionImpl {
 	private SessionFactory sessionFactory;
@@ -28,7 +30,7 @@ public class TransactionImpl {
 		catch (Exception e)
 		{
 			tx.rollback();
-			throw new RuntimeException(e);
+			throw new ExecuteException();
 		}
 		session.close();
 		return data;

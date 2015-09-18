@@ -31,7 +31,7 @@
     		<list>
     			<value>com.model.User.User</value>
     			<value>com.model.Group.Group</value>
-    			<value>com.service.Transaction.TransactionImpl</value>
+    			<value>com.service.TransactionService.TransactionImpl</value>
     		</list>
     	</property>
 	</bean>
@@ -50,16 +50,9 @@
 		<property name="groupsDAO" ref="groupsDAO"></property>
 	</bean>
 	
-	<bean id="transactionService" class="com.service.Transaction.TransactionImpl">
+	<bean id="transactionService" class="com.service.TransactionService.TransactionImpl">
 		<constructor-arg>
         	<ref bean="sessionFactory" />
     	</constructor-arg>
 	</bean>
-	
-	
-	
-
-	
-	
-
 </beans>

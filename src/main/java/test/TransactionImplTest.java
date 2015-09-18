@@ -2,14 +2,20 @@ package test;
 
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.service.Transaction.ITransaction;
-import com.service.Transaction.TransactionImpl;
+import com.service.TransactionService.ITransaction;
+import com.service.TransactionService.TransactionImpl;
+
+import Exception.ExecuteException;
 
 public class TransactionImplTest {
 	TransactionImpl transactionImpl;
@@ -32,29 +38,27 @@ public class TransactionImplTest {
 	public void doInTransaktionRollback() {
 		try
 		{
-		transactionImpl.doInTransaktion(new ITransaction<Object>() {
-
-			public Object execute(Session session) {
-				throw new RuntimeException();
-			}
-		});
-		verify(transaction).rollback();
+			transactionImpl.doInTransaktion(new ITransaction<Object>() {
+	
+				public Object execute(Session session) {
+					throw new ExecuteException();
+				}
+			});
 		}
 		catch (Exception e)
 		{
-			
+			//for once
 		}
+		verify(transaction).rollback();
 	}
 	
-	@Test()
-	public void doInTransaktionCommit() {
-
+	@Test(expected=ExecuteException.class)
+	public void doInTransaktionException() {
 		transactionImpl.doInTransaktion(new ITransaction<Object>() {
 
 			public Object execute(Session session) {
-				return "test";
+				throw new ExecuteException();
 			}
 		});
-		verify(transaction).commit();
 	}
 }

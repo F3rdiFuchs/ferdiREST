@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.model.Group.Group;
-import com.service.Transaction.ITransaction;
-import com.service.Transaction.TransactionImpl;
+import com.service.TransactionService.ITransaction;
+import com.service.TransactionService.TransactionImpl;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,8 +12,8 @@ import java.util.List;
 
 import com.model.User.User;
 import com.model.User.UserDAOImpl;
-import com.service.Transaction.ITransaction;
-import com.service.Transaction.TransactionImpl;
+import com.service.TransactionService.ITransaction;
+import com.service.TransactionService.TransactionImpl;
 
 public class UserDAOImlTest {
 	Query query;
@@ -23,7 +23,7 @@ public class UserDAOImlTest {
 
 	
 	@Before
-	public void create(){
+	public void create() {
 		query = mock(Query.class);
 		session = mock(Session.class);
 		
@@ -35,7 +35,7 @@ public class UserDAOImlTest {
 	
 	@Test
 	public void test() {
-		List<User> userList = Arrays.asList(new User(),new User());
+		List<User> userList = Arrays.asList(new User(), new User());
 		when(session.createQuery(anyString())).thenReturn(query);
 		when(query.list()).thenReturn(userList);
 		List<User> testUserList = userDAOImpl.listUser();
