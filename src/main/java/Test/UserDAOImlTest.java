@@ -1,4 +1,4 @@
-package test;
+package Test;
 
 import static org.junit.Assert.*;
 
@@ -34,7 +34,7 @@ public class UserDAOImlTest {
 	}
 	
 	@Test
-	public void test() {
+	public void userListTest() {
 		List<User> userList = Arrays.asList(new User(), new User());
 		when(session.createQuery(anyString())).thenReturn(query);
 		when(query.list()).thenReturn(userList);

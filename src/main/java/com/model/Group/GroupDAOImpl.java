@@ -1,12 +1,17 @@
 package com.model.Group;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.hateoas.Link;
 
+import com.Controller.GroupController;
 import com.model.User.User;
 import com.service.TransactionService.ITransaction;
 import com.service.TransactionService.TransactionImpl;
@@ -64,5 +69,15 @@ public class GroupDAOImpl implements GroupDAO {
 				return groupList;
 			}
 		});
+	}
+	
+	public Link generateLink(Group group)
+	{
+		return linkTo(methodOn(GroupController.class).getGroup(group.getGroupId().toString())).withSelfRel();
+	}
+	
+	public Link generateLinkwithUser(Group group)
+	{
+		return linkTo(methodOn(GroupController.class).getGroup(group.getGroupId().toString())).slash("user").withRel("user");
 	}
 }

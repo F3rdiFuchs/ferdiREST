@@ -2,6 +2,8 @@ package com.service.GroupService;
 
 import java.util.List;
 
+import org.springframework.hateoas.Link;
+
 import com.model.Group.Group;
 import com.model.Group.GroupDAO;
 import com.model.User.User;
@@ -27,6 +29,14 @@ public class GroupServiceImpl implements GroupService {
 
 	public Group getGroupById(Integer id) {
 		return this.groupsDAO.getGroupById(id);
+	}
+
+	public Link generateLink(Group group) {
+		return this.groupsDAO.generateLink(group);
+	}
+
+	public Link generateLinkwithUser(Group group) {
+		return this.groupsDAO.generateLinkwithUser(group);
 	}
 
 }

@@ -26,16 +26,16 @@ import com.service.GroupService.GroupService;
 
 @RestController
 public class GroupController {
-	private GroupService groupsService;
+	private GroupService groupService;
 	
-	public GroupService getGroupsService() {
-		return groupsService;
+	public GroupService getGroupService() {
+		return groupService;
 	}
 
 	@Autowired(required = true)
 	@Qualifier(value = "groupsService")
-	public void setGroupsService(GroupService groupsServ) {
-		this.groupsService = groupsServ;
+	public void setGroupService(GroupService groupServ) {
+		this.groupService = groupServ;
 	}
 
 	@RequestMapping(value = "/groups", method = RequestMethod.GET)
@@ -43,7 +43,7 @@ public class GroupController {
 	{
 		List<Group> groupList = new ArrayList<Group>();
 		List<TGroup> tgroupList = new ArrayList<TGroup>();
-		groupList = groupsService.listAllGroups();
+		groupList = groupService.listAllGroups();
 		
 		for (Integer index = 0; index < groupList.size(); index++)
 		{
@@ -52,7 +52,7 @@ public class GroupController {
 		for (Integer index = 0; index < groupList.size(); index++)
 		{
 			Group group = groupList.get(index);
-			Link slink = linkTo(methodOn(GroupController.class).getGroup(group.getGroupId().toString())).withSelfRel();
+			Link slink = groupService.generateLink(group);
 			tgroupList.get(index).add(slink);
 		}
 		return new ResponseEntity<List<TGroup>>(tgroupList, HttpStatus.OK);
@@ -64,9 +64,9 @@ public class GroupController {
 		Group group = null;
 		try
 		{
-			group = groupsService.getGroupById(Integer.parseInt(id));
-			group.add(linkTo(methodOn(GroupController.class).getGroup(group.getGroupId().toString())).withSelfRel());
-			group.add(linkTo(methodOn(GroupController.class).getGroup(group.getGroupId().toString())).slash("user").withRel("user"));
+			group = groupService.getGroupById(Integer.parseInt(id));
+			group.add(groupService.generateLink(group));
+			group.add(groupService.generateLinkwithUser(group));
 		}
 		catch (Exception e)
 		{
@@ -80,7 +80,7 @@ public class GroupController {
 	{
 		List<TUser> tuserList = new ArrayList<TUser>();
 		List<User> userList = new ArrayList<User>();
-		userList = groupsService.getUserInGroup(Integer.parseInt(id));
+		userList = groupService.getUserInGroup(Integer.parseInt(id));
 		
 		for (Integer index = 0; index < userList.size(); index++)
 		{
