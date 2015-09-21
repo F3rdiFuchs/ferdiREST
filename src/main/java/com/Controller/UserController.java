@@ -32,7 +32,7 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	@RequestMapping(value = "/data/user", method = RequestMethod.GET)
 	public HttpEntity<List<TUser>> listAllUser()
 	{
 		List<User> userList = new ArrayList<User>();
@@ -52,7 +52,7 @@ public class UserController {
 		return new ResponseEntity<List<TUser>>(tuserList, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/data/user/{id}", method = RequestMethod.GET)
 	public User getUser(@PathVariable (value = "id") String id)
 	{
 		User user;

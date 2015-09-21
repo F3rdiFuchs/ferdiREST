@@ -38,7 +38,7 @@ public class GroupController {
 		this.groupService = groupServ;
 	}
 
-	@RequestMapping(value = "/groups", method = RequestMethod.GET)
+	@RequestMapping(value = "/data/groups", method = RequestMethod.GET)
 	public HttpEntity<List<TGroup>> getGroups()
 	{
 		List<Group> groupList = new ArrayList<Group>();
@@ -58,7 +58,7 @@ public class GroupController {
 		return new ResponseEntity<List<TGroup>>(tgroupList, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/groups/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/data/groups/{id}", method = RequestMethod.GET)
 	public Group getGroup(@PathVariable (value = "id") String id)
 	{
 		Group group = null;
@@ -75,7 +75,7 @@ public class GroupController {
 		return group;
 	}
 	
-	@RequestMapping(value = "/groups/{id}/user", method = RequestMethod.GET)
+	@RequestMapping(value = "/data/groups/{id}/user", method = RequestMethod.GET)
 	public HttpEntity<List<TUser>> getUserInGroup(@PathVariable (value = "id") String id)
 	{
 		List<TUser> tuserList = new ArrayList<TUser>();
