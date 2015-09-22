@@ -9,16 +9,21 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form id="signin" class="navbar-form navbar-right" role="form">
+      <c:url var="loginUrl" value="/login" />
+      <form action="${loginUrl}" method="POST" id="signin" class="navbar-form navbar-right" role="form">
          <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-              <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address">                                        
+              
+              <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter Username" required>  
+                                                    
         </div>
 
         <div class="input-group">
-           <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-           <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password">                                        
+           
+           <input type="password" class="form-control" id="passWord" name="passWord" placeholder="Enter Password" required> 
+                                                  
         </div>
+        <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
            <button type="submit" class="btn btn-primary">Login</button>
                    </form>
     			</div>
