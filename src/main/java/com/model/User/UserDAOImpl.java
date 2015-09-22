@@ -58,4 +58,14 @@ private TransactionImpl transactionService;
 			}
 		});
 	}
+
+	public User findById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public User findBySSO(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

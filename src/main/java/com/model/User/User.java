@@ -45,19 +45,21 @@ public class User extends ResourceSupport {
 	@Column(name = "password")
 	private String passWord;
 	
+	@Column(name="state")
+	private String state;
+	
 	@ManyToOne
 	@JoinColumn(name = "groupid")
 	@JsonBackReference
-	private Group groups;
+	private Group group;
 	
-	public Group getGroups() {
-		return groups;
+	public Group getGroup() {
+		return group;
 	}
 
-	public void setGroups(Group groups) {
-		this.groups = groups;
+	public void setGroup(Group group) {
+		this.group = group;
 	}
-
 
 	public Integer getUserId() {
 		return userId;
@@ -105,6 +107,14 @@ public class User extends ResourceSupport {
 
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public void encryptPasswd() {

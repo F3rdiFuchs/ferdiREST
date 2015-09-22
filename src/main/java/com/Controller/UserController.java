@@ -59,7 +59,7 @@ public class UserController {
 		try 
 		{
 			user = this.userService.getUser(Integer.parseInt(id));
-			user.add(linkTo(methodOn(GroupController.class).getGroup(user.getGroups().getGroupId().toString())).withSelfRel());
+			user.add(linkTo(methodOn(GroupController.class).getGroup(user.getGroup().getGroupId().toString())).withSelfRel());
 		} 
 		catch (Exception e) 
 		{

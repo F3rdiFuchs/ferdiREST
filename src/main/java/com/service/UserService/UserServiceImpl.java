@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService , UserDetailsService {
+public class UserServiceImpl implements UserService {
 	private UserDAO userDAO;
 
 	public UserDAO getUserDAO() {
@@ -35,8 +35,11 @@ public class UserServiceImpl implements UserService , UserDetailsService {
 		return this.userDAO.getGroupById(userId);
 	}
 
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public User findById(int id) {
+		return this.userDAO.findById(id);
+	}
+
+	public User findBySso(String sso) {
+		return this.userDAO.findBySSO(sso);
 	}
 }

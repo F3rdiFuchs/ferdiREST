@@ -29,14 +29,8 @@ public class Group extends ResourceSupport {
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "accesslevel")
-	private Integer accessLevel;
-	
-	@Column(name = "allowtologin")
-	private Boolean allowToLogin;
-	
 	@JsonIgnore
-	@OneToMany(mappedBy = "groups")
+	@OneToMany(mappedBy = "group")
 	private List<User> user;
 
 	
@@ -70,21 +64,5 @@ public class Group extends ResourceSupport {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Integer getAccessLevel() {
-		return accessLevel;
-	}
-
-	public void setAccessLevel(Integer accessLevel) {
-		this.accessLevel = accessLevel;
-	}
-
-	public Boolean getAllowToLogin() {
-		return allowToLogin;
-	}
-
-	public void setAllowToLogin(Boolean allowToLogin) {
-		this.allowToLogin = allowToLogin;
 	}
 }

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 	
-	@RequestMapping(value = {"/", "/data/**"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/data/**","/login"}, method = RequestMethod.GET)
 	public ModelAndView defaultPage(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request)
 	{

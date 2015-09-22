@@ -8,4 +8,6 @@ public interface UserDAO {
 	List <User> listUser();
 	User getUser(int userid);
 	Group getGroupById(Integer userId);
+	User findById(int id);
+	User findBySSO(String username);
 }
