@@ -9,5 +9,5 @@ public interface UserService {
 	Group getGroupById(Integer userId);
 	User findById(int userid);
 	List<User> listUser();
-	User findBySso(String sso);
+	User findByUserName(String userName);
 }

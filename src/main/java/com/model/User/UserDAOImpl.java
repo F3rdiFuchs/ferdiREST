@@ -59,12 +59,12 @@ private TransactionImpl transactionService;
 		});
 	}
 
-	public User findBySSO(final String username) {
+	public User findByUserName(final String userName) {
 		return transactionService.doInTransaktion(new ITransaction<User>() {
 					
 			public User execute(Session session) {
 				User user = null;
-				user = (User) session.get(User.class, username);
+				user = (User) session.get(User.class, userName);
 				return user;
 			}
 		});

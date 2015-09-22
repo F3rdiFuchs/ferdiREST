@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 		return this.userDAO.findById(userId);
 	}
 
-	public User findBySso(String sso) {
-		return this.userDAO.findBySSO(sso);
+	public User findByUserName(String userName) {
+		return this.userDAO.findByUserName(userName);
 	}
 }

@@ -8,8 +8,9 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 		
     <context:component-scan base-package="com.*"/> 
-    <mvc:annotation-driven />
     
+    <mvc:annotation-driven />
+    <mvc:resources mapping="/static/**" location="/static/"/>
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	        <property name="prefix" value="/WEB-INF/view/"/>
@@ -54,7 +55,4 @@
         	<ref bean="sessionFactory" />
     	</constructor-arg>
 	</bean>
-	
-	<mvc:resources mapping="/static/**" location="/static/"/>
-	
 </beans>

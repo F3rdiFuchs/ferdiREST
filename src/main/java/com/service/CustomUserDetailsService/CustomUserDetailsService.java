@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,12 +20,22 @@ import com.service.UserService.UserService;
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 	
-	@Autowired
 	private UserService userService;
 	
+	public UserService getUserService() {
+		return userService;
+	}
+	
+	@Autowired(required = true)
+	@Qualifier(value = "userService")
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 	@Transactional(readOnly=true)
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userService.findBySso(username);
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+		
+		User user = userService.findByUserName(userName);
         System.out.println("User : "+user);
         if(user==null){
             System.out.println("User not found");

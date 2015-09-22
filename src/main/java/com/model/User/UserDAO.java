@@ -8,5 +8,5 @@ public interface UserDAO {
 	List <User> listUser();
 	Group getGroupById(Integer userId);
 	User findById(int userId);
-	User findBySSO(String username);
+	User findByUserName(String userName);
 }

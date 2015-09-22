@@ -19,6 +19,7 @@
         <authentication-provider user-service-ref="customUserDetailsService"/>
     </authentication-manager>
       
-    <beans:bean id="customUserDetailsService" class="com.service.CustomUserDetailsService.CustomUserDetailsService" />
+    <beans:bean id="customUserDetailsService" class="com.service.CustomUserDetailsService.CustomUserDetailsService" >
+    </beans:bean>
      
 </beans:beans>
