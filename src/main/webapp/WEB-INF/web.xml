@@ -6,7 +6,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
 
     <display-name>ferdiRest</display-name>
-
+		
+	 <welcome-file-list>
+    	<welcome-file>login.jsp</welcome-file>
+  	</welcome-file-list>
+	
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring/application-config.xml, /WEB-INF/spring-security.xml</param-value>

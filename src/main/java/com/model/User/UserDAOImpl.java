@@ -37,7 +37,7 @@ private TransactionImpl transactionService;
 		});
 	}
 
-	public User getUser(final int userid) {
+	public User findById(final int userid) {
 		return transactionService.doInTransaktion(new ITransaction<User>() {
 			
 			public User execute(Session session) {
@@ -59,13 +59,14 @@ private TransactionImpl transactionService;
 		});
 	}
 
-	public User findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public User findBySSO(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public User findBySSO(final String username) {
+		return transactionService.doInTransaktion(new ITransaction<User>() {
+					
+			public User execute(Session session) {
+				User user = null;
+				user = (User) session.get(User.class, username);
+				return user;
+			}
+		});
 	}
 }

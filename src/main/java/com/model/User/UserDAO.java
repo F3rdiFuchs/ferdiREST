@@ -6,8 +6,7 @@ import com.model.Group.Group;
 
 public interface UserDAO {
 	List <User> listUser();
-	User getUser(int userid);
 	Group getGroupById(Integer userId);
-	User findById(int id);
+	User findById(int userId);
 	User findBySSO(String username);
 }

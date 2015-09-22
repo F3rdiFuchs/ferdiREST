@@ -27,16 +27,12 @@ public class UserServiceImpl implements UserService {
 		return this.userDAO.listUser();
 	}
 
-	public User getUser(int userid)  {
-		return this.userDAO.getUser(userid);
-	}
-
 	public Group getGroupById(Integer userId) {
 		return this.userDAO.getGroupById(userId);
 	}
 
-	public User findById(int id) {
-		return this.userDAO.findById(id);
+	public User findById(int userId) {
+		return this.userDAO.findById(userId);
 	}
 
 	public User findBySso(String sso) {
