@@ -4,16 +4,20 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.model.Group.Group;
 import com.service.TransactionService.ITransaction;
 import com.service.TransactionService.TransactionImpl;
 
+import Exception.UserNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {	
-private TransactionImpl transactionService;
+	private static final int DEFAULT_GROUPID_USER = 25;
+	private TransactionImpl transactionService;
 	
 	public TransactionImpl getTransactionService() {
 		return transactionService;
@@ -57,5 +61,54 @@ private TransactionImpl transactionService;
 				return group;
 			}
 		});
+	}
+
+	public void addUser(final User user) {
+		transactionService.doInTransaktion(new ITransaction<User>() {
+			
+			public User execute(Session session) {
+				if (user.getGroups() == null)
+				{
+					Group group = (Group) session.get(Group.class, DEFAULT_GROUPID_USER);
+					user.setGroups(group);
+				}
+				session.persist(user);
+				return null;
+			}
+		});
+	}
+
+	public void deleteUser(final String userid) {
+		transactionService.doInTransaktion(new ITransaction<User>() {
+			
+			public User execute(Session session) {
+				User userToDelete = (User) session.get(User.class, Integer.parseInt(userid));
+				session.delete(userToDelete);
+				return null;
+			}
+		});
+	}
+
+	public void updateUser(final User user) {
+		transactionService.doInTransaktion(new ITransaction<User>() {
+			public User execute(Session session) {
+				try
+				{
+					User tUser = (User) session.get(User.class, user.getUserId());
+					tUser.setUserName(user.getUserName());
+					tUser.setName(user.getName());
+					tUser.setLastName(user.getLastName());
+					tUser.seteMail(user.geteMail());
+					tUser.setPassword(user.getPassword());
+					session.save(tUser);
+				}
+				catch (Exception e)
+				{
+					throw new UserNotFoundException();
+				}
+				return null;
+			}
+		});
+		
 	}
 }

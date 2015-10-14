@@ -24,11 +24,23 @@ public class UserServiceImpl implements UserService {
 		return this.userDAO.listUser();
 	}
 
-	public User getUser(int userid)  {
-		return this.userDAO.getUser(userid);
+	public User getUser(int userId)  {
+		return this.userDAO.getUser(userId);
 	}
 
 	public Group getGroupById(Integer userId) {
 		return this.userDAO.getGroupById(userId);
+	}
+
+	public void addUser(User user) {
+		this.userDAO.addUser(user);
+	}
+
+	public void deleteUser(String userId) {
+		this.userDAO.deleteUser(userId);
+	}
+
+	public void updateUser(User user) {
+		this.userDAO.updateUser(user);
 	}
 }

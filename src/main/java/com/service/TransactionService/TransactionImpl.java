@@ -22,16 +22,11 @@ public class TransactionImpl {
 		session = this.sessionFactory.openSession();
 		tx = session.beginTransaction();
 		
-		try
-		{
+	
 			data = dataObject.execute(session);
 			tx.commit();
-		}
-		catch (Exception e)
-		{
-			tx.rollback();
-			throw new ExecuteException();
-		}
+		
+		
 		session.close();
 		return data;
 	}

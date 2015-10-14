@@ -14,7 +14,6 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.model.Group.Group;
 
 @Entity
@@ -41,9 +40,8 @@ public class User extends ResourceSupport {
 	@Column(name = "email")
 	private String eMail;
 
-	@JsonIgnore
 	@Column(name = "password")
-	private String passWord;
+	private String password;
 	
 	@ManyToOne
 	@JoinColumn(name = "groupid")
@@ -98,13 +96,13 @@ public class User extends ResourceSupport {
 	public void seteMail(String eMail) {
 		this.eMail = eMail;
 	}
-
-	public String getPassWord() {
-		return passWord;
+	
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public void encryptPasswd() {
@@ -112,7 +110,7 @@ public class User extends ResourceSupport {
 		while (count < PASSWORD_SECURITY)
 		{
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			this.passWord = passwordEncoder.encode(this.passWord);
+			this.password = passwordEncoder.encode(this.password);
 			count++;
 		}
 	}

@@ -9,7 +9,10 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,4 +70,28 @@ public class UserController {
 		}
 		return user;
 	}	
+	
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	public void addUser(@RequestBody User user)
+	{
+		if (user != null)
+		{
+			this.userService.addUser(user);
+		}
+	}
+	
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+	public void deleteUser(@PathVariable(value = "id") String id)
+	{
+		this.userService.deleteUser(id);
+	}
+	
+	@RequestMapping(value = "/user", method = RequestMethod.PUT)
+	public void updateUser(@RequestBody User user)
+	{
+		this.userService.updateUser(user);
+	}
+	
+	
+	
 }
