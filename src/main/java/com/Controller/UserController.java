@@ -36,23 +36,11 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public HttpEntity<List<TUser>> listAllUser()
+	public HttpEntity<List<User>> listAllUser()
 	{
 		List<User> userList = new ArrayList<User>();
-		List<TUser> tuserList = new ArrayList<TUser>();
 		userList = userService.listUser();
-		
-		for (Integer index = 0; index < userList.size(); index++)
-		{
-			tuserList.add(new TUser());
-		}
-		for (Integer index = 0; index < userList.size(); index++)
-		{
-			User user = userList.get(index);
-			Link slink = linkTo(methodOn(UserController.class).getUser(user.getUserId().toString())).withSelfRel();
-			tuserList.get(index).add(slink);
-		}
-		return new ResponseEntity<List<TUser>>(tuserList, HttpStatus.OK);
+		return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
