@@ -64,7 +64,17 @@ public class UserController {
 	{
 		if (user != null)
 		{
-			this.userService.addUser(user);
+			if ((user.getUserName() != null) && (user.geteMail() != null) && user.getPassword() != null)
+			{
+				try
+				{
+					this.userService.addUser(user);
+				}
+				catch (Exception e)
+				{
+					System.out.println("User cont not be saved: " +e);
+				}
+			}
 		}
 	}
 	
