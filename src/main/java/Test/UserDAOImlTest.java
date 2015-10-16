@@ -38,7 +38,7 @@ public class UserDAOImlTest {
 		List<User> userList = Arrays.asList(new User(), new User());
 		when(session.createQuery(anyString())).thenReturn(query);
 		when(query.list()).thenReturn(userList);
-		List<User> testUserList = userDAOImpl.listUser();
+		List<User> testUserList = userDAOImpl.listUser(0,0);
 		assertEquals(testUserList,userList);
 	}
 	

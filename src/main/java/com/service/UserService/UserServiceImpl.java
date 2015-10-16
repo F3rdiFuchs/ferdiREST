@@ -20,12 +20,12 @@ public class UserServiceImpl implements UserService {
 		this.userDAO = userD;
 	}
 
-	public List<User> listUser() {
-		return this.userDAO.listUser();
+	public List<User> listUser(int page, int size) {
+		return this.userDAO.listUser(page, size);
 	}
 
-	public User getUser(int userId)  {
-		return this.userDAO.getUser(userId);
+	public User getUserById(int userId)  {
+		return this.userDAO.getUserById(userId);
 	}
 
 	public Group getGroupById(Integer userId) {

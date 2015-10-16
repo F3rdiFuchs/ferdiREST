@@ -35,11 +35,18 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public HttpEntity<List<User>> listAllUser()
+	@RequestMapping(value = "/user/{page}/{size}", method = RequestMethod.GET)
+	public HttpEntity<List<User>> listAllUser(@PathVariable (value = "page") String page, @PathVariable (value = "size") String size)
 	{
 		List<User> userList = new ArrayList<User>();
-		userList = userService.listUser();
+		try
+		{
+			userList = userService.listUser(Integer.parseInt(page), Integer.parseInt(size));
+		}
+		catch(Exception e)
+		{
+			System.out.println("listAllUser " +e);
+		}
 		return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
 	}
 
@@ -49,7 +56,7 @@ public class UserController {
 		User user;
 		try 
 		{
-			user = this.userService.getUser(Integer.parseInt(id));
+			user = this.userService.getUserById(Integer.parseInt(id));
 			user.add(linkTo(methodOn(GroupController.class).getGroup(user.getGroups().getGroupId().toString())).withSelfRel());
 		} 
 		catch (Exception e) 
@@ -89,7 +96,4 @@ public class UserController {
 	{
 		this.userService.updateUser(user);
 	}
-	
-	
-	
 }

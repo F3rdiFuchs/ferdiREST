@@ -35,7 +35,7 @@
 			<tr>
 				<td>Benutzer löschen:</td>
 				<td>DELETE</td>
-				<td>/user/1</td>
+				<td>/user/id</td>
 				<td> - </td>
 			</tr>
 			
@@ -45,6 +45,13 @@
 				<td>user/</td>
 				<td>Bsp: {"userId":"9","userName": "Timmy","name": "Eggs","lastName": "Dualegg","eMail": "abc@gmail.com","password": "abc123"}</td>
 			<tr>
+			
+			<tr>
+				<td>Einzelne Benutzer ausgeben:</td>
+				<td>GET</td>
+				<td>/user/id</td>
+				<td> - </td>
+			</tr>
 		</table>
 	</body>
 </html>

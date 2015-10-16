@@ -1,5 +1,6 @@
 package com.model.User;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,18 +31,23 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<User> listUser() {
+	public List<User> listUser(final int page, final int size) {
 		return transactionService.doInTransaktion(new ITransaction<List<User>>() {
 			
 			public List<User> execute(Session session) {
+				Query query = session.createQuery("FROM User u LEFT JOIN FETCH u.groups");
+				query.setFirstResult((page - 1) * size);
+				query.setMaxResults(size);
+				
 				List<User> userList = new ArrayList<User>();
-				userList = (List<User>) session.createQuery("FROM User u LEFT JOIN FETCH u.groups").list();
+				userList = (List<User>) query.list();
+				
 				return userList;
 			}
 		});
 	}
 
-	public User getUser(final int userid) {
+	public User getUserById(final int userid) {
 		return transactionService.doInTransaktion(new ITransaction<User>() {
 			
 			public User execute(Session session) {
