@@ -19,9 +19,9 @@
 				<td><b>Input:</b></td>
 			</tr>
 			<tr>
-				<td>Liste aller User:</td>
+				<td>Liste aller User mit Seitenzahl und User pro Seite</td>
 				<td>GET</td>
-				<td>/user</td>
+				<td>/user/Seitenzahl/user pro Seite Bsp.:  /user/1/10 -> du erhälst User 0 bis 9 // user/2/10 -> du erhälst User 10 - 19 use.</td>
 				<td> - </td>
 			</tr>
 			
